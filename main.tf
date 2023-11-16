@@ -48,11 +48,11 @@ resource "google_gke_hub_feature" "feature-cs" {
       version = "1.16.0"
       config_sync {
         git {
-          sync_repo = "https://github.com/theemadnes/acm-demo-journey"
+          sync_repo = "https://github.com/some-repo/e2m-mcg-asm"
           sync_branch = "main"
           secret_type = "none"
           sync_wait_secs = 15
-          policy_dir = "./01-config-sync/config-base"
+          policy_dir = "./config-dir"
         }
         source_format = "hierarchy"
       }
