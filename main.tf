@@ -3,11 +3,17 @@ provider "google-beta" {
   project = "MY-PROJECT"
 }
 
+data "google_project" "project" {
+}
+
 resource "google_container_cluster" "cluster-east" {
   provider = google-beta
   name               = "cluster-east"
   location           = "us-east4"
   enable_autopilot = true
+  resource_labels = {
+    mesh_id = "proj-${data.google_project.project.number}"
+  }
 }
 
 resource "google_gke_hub_membership" "cluster-east-fleet" {
@@ -26,6 +32,9 @@ resource "google_container_cluster" "cluster-west" {
   name               = "cluster-west"
   location           = "us-west4"
   enable_autopilot = true
+  resource_labels = {
+    mesh_id = "proj-${data.google_project.project.number}"
+  }
 }
 
 resource "google_gke_hub_membership" "cluster-west-fleet" {
